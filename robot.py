@@ -16,3 +16,5 @@ class Robot:
         self.position.x += dx
         self.position.y += dy
         #test
+    def set_pose(self,point):
+        self.position = point

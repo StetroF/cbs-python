@@ -4,7 +4,7 @@ from baseClass import Point
 from costmap import CostMap  # 导入 CostMap 类
 from robot import Robot  # 导入 Robot 类
 from astar import AstarPlanner
-
+import time
 # 初始化 Pygame
 pygame.init()
 
@@ -31,6 +31,8 @@ def main():
     costmap.set_path(plan_path)  # 设置路径
 
     running = True
+    looping = True
+    time = 0
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -40,15 +42,27 @@ def main():
 
             dx = 0
             dy = 0
-            # 按 'd' 键让 robot1 向右移动
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-                # 移动机器人
-                if robot1.position.x < GRID_SIZE - 1:
-                    dx = 1
-                    robot1.move(dx, dy)
+
+            ###让robot沿着plan_path移动
+            # if looping:
+            #     for path_point in plan_path:
+            #         robot1.set_pose(path_point)
+            #         costmap.add_robot(robot1)  # 更新机器人的位置
+            # # 按 'd' 键让 robot1 向右移动
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                time+=1
+                if time < len(plan_path):
+                    robot1.set_pose(plan_path[time])
                     costmap.add_robot(robot1)  # 更新机器人的位置
                 else:
-                    print("机器人已经到了右边的边界!")
+                    pass
+                # # 移动机器人
+                # if robot1.position.x < GRID_SIZE - 1:
+                #     dx = 1
+                #     robot1.move(dx, dy)
+                #     costmap.add_robot(robot1)  # 更新机器人的位置
+                # else:
+                #     print("机器人已经到了右边的边界!")
 
         # 绘制地图和路径
         costmap.draw(screen)  # 将路径传递给 draw 方法
