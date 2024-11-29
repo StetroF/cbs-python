@@ -27,6 +27,7 @@ def main():
     costmap.add_robot(robot1)  # 将机器人添加到 CostMap 中
     planner = AstarPlanner(costmap)  # 初始化 A* 规划器
     plan_path = planner.plan(robot1)  # 规划机器人的路径
+    
     costmap.set_path(plan_path)  # 设置路径
 
     running = True

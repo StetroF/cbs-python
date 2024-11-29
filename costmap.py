@@ -28,6 +28,15 @@ class CostMap:
             if x not in obstacle_list:
                 obstacle_list.add(x)
                 self.grid[self.size - height - 1][x] = LETHAL_OBSTACLE  # 从下往上索引
+        height = 5  # 指定障碍物生成的行
+        num_of_obstacle = min(self.size, 7)  # 障碍数量不超过网格宽度
+        obstacle_list = set()
+
+        while len(obstacle_list) < num_of_obstacle:
+            x = random.randint(0, self.size - 1)
+            if x not in obstacle_list:
+                obstacle_list.add(x)
+                self.grid[self.size - height - 1][x] = LETHAL_OBSTACLE  # 从下往上索引
 
     def is_valid_point(self, point: Point):
         """

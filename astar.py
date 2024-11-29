@@ -15,7 +15,7 @@ class AstarPlanner:
         """
         start = Point(robot.position.x, robot.position.y)
         goal = robot.get_goal()
-
+    
         # 优先队列存储 (f_cost, g_cost, 当前节点, 父节点)
         open_list = []
         heapq.heappush(open_list, (0, 0, start, None))
@@ -73,4 +73,13 @@ class AstarPlanner:
                 neighbours.append(candinate_point)
             
         return neighbours
-    
+    def reconstruct_path(self, came_from, current: Point):
+        """
+        从目标点回溯重建路径。
+        """
+        path = []
+        while current:
+            path.append(current)
+            current = came_from.get(current)
+        path.reverse()  # 逆序返回路径
+        return path
